@@ -1,9 +1,6 @@
-import {defineUserConfig} from ;
-
-@vuepress/
-cli;
-import type {DefaultThemeOptions} from '@vuepress/theme-default'
-import {navbar, sidebar} from './configs';
+import { defineUserConfig } from '@vuepress/cli'
+import type { DefaultThemeOptions } from '@vuepress/theme-default'
+import { navbar, sidebar } from './configs';
 
 export default defineUserConfig<DefaultThemeOptions>({
     lang: 'zh-CN',
