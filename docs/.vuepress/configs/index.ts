@@ -1,2 +1,3 @@
-export * as navbar from './navbar'
-export * as sidebar from './sidebar'
+export * as NavbarConfig from "./navbar";
+
+export * as SidebarConfig from "./sidebar";

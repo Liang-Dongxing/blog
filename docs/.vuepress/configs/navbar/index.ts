@@ -1,6 +1,6 @@
-import type {NavbarConfig} from '@vuepress/theme-default'
+import type { NavbarConfig } from "@vuepress/theme-default";
 
 export const navbar: NavbarConfig = [
-    {text: 'Java', link: '/java'},
-    {text: 'Linux', link: '/linux'}
-]
+  { text: "Java", link: "/java" },
+  { text: "Linux", link: "/linux" },
+];
