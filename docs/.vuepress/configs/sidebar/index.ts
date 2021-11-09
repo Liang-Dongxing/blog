@@ -10,4 +10,5 @@ export const sidebar: SidebarConfig = {
     "/docker/command-container.md",
   ],
   "/kubernetes": ["/kubernetes/index.md"],
+  "/web": ["/web/index.md","/web/npm.md"],
 };

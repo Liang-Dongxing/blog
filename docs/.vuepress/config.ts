@@ -9,6 +9,7 @@ export default defineUserConfig<DefaultThemeOptions>({
   base: "/my-docs/",
   themeConfig: {
     home: "/",
+    lang: "zh-CN",
     navbar: NavbarConfig.navbar,
     sidebar: SidebarConfig.sidebar,
     logo: "/images/icons/L-logo-black.png",
