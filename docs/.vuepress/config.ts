@@ -7,7 +7,9 @@ export default defineUserConfig<DefaultThemeOptions>({
   title: "Liang-DongXing",
   description: "这是我的第一个 VuePress 站点",
   base: "/my-docs/",
-  head:[['link', { rel: 'icon', href: '/images/icons/L-logo-black.png' }]],
+  head: [
+    ["link", { rel: "icon", href: "/my-docs/images/icons/L-logo-black.png" }],
+  ],
   themeConfig: {
     home: "/",
     lang: "zh-CN",
