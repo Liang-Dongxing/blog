@@ -1,5 +1,7 @@
 # Docker 容器命令
+
 ## 新建并启动容器
+
 ```docker
 docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 ```
@@ -16,3 +18,15 @@ OPTIONS说明
 -P: 随机端口映射。
 
 -p: 指定端口映射 hostPort:containerPort。
+
+## 停止容器
+
+```docker
+docker stop [OPTIONS] 容器ID [容器ID...]
+```
+
+## 删除容器
+
+```docker
+docker rm [OPTIONS] 容器ID [容器ID...]
+```

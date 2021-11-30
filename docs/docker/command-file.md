@@ -42,3 +42,8 @@ ENTRYPOINT ["java","-jar","/opt/om/app.jar","--spring.profiles.active=prod"]
 #当构建一个被继承的Dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发
 ONBUILD RUN ["echo","build is ok!!!"]
 ```
+
+```dockerfile
+# 构建镜像
+docker build -t liangdongxing/om-system:v1.0.0 .
+```
