@@ -1,7 +1,7 @@
 import type { SidebarConfig } from "@vuepress/theme-default";
 
 export const sidebar: SidebarConfig = {
-  "/java": ["/java/index.md", "/java/exception/IllegalArgumentException.md","/java/exception/yaml文件乱码.md"],
+  "/java": ["/java/index.md", "/java/exception/IllegalArgumentException.md", "/java/exception/yaml文件乱码.md", "/java/jasypt.md"],
   "/linux": ["/linux/index.md", "/linux/file-sync.md"],
   "/docker": [
     "/docker/index.md",
