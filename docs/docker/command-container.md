@@ -30,3 +30,7 @@ docker stop [OPTIONS] 容器ID [容器ID...]
 ```docker
 docker rm [OPTIONS] 容器ID [容器ID...]
 ```
+
+```docker
+docker exec [OPTIONS] 容器ID [COMMAND...]
+```
