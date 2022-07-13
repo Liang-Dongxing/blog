@@ -20,13 +20,13 @@
   },
   "homepage": "https://github.com/Liang-Dongxing/my-docs",
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^2.0.0-beta.27",
-    "@vuepress/plugin-search": "^2.0.0-beta.27",
-    "eslint": "^8.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "2.4.1",
+    "@vuepress/plugin-google-analytics": "^1.9.7",
+    "@vuepress/plugin-search": "^1.9.7",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "2.7.1",
     "vuepress-plugin-clean-urls": "^1.1.2",
-    "vuepress-vite": "^2.0.0-beta.27"
+    "vuepress-vite": "^2.0.0-beta.45"
   }
 }
