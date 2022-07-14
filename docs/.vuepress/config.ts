@@ -2,6 +2,19 @@ import {defineUserConfig} from "@vuepress/cli";
 import {viteBundler} from '@vuepress/bundler-vite'
 import {NavbarConfig, SidebarConfig} from "./configs";
 import {defaultTheme} from "vuepress-vite";
+import {backToTopPlugin} from '@vuepress/plugin-back-to-top';
+import {containerPlugin} from '@vuepress/plugin-container';
+import {externalLinkIconPlugin} from '@vuepress/plugin-external-link-icon';
+import {googleAnalyticsPlugin} from '@vuepress/plugin-google-analytics';
+import {mediumZoomPlugin} from '@vuepress/plugin-medium-zoom';
+import {nprogressPlugin} from '@vuepress/plugin-nprogress';
+import {registerComponentsPlugin} from '@vuepress/plugin-register-components';
+import {searchPlugin} from '@vuepress/plugin-search';
+import {prismjsPlugin} from '@vuepress/plugin-prismjs';
+import {activeHeaderLinksPlugin} from '@vuepress/plugin-active-header-links';
+import {gitPlugin} from '@vuepress/plugin-git';
+import {palettePlugin} from '@vuepress/plugin-palette';
+import {tocPlugin} from '@vuepress/plugin-toc';
 
 export default defineUserConfig({
   lang: "zh-CN",
@@ -15,7 +28,7 @@ export default defineUserConfig({
     '/': {
       lang: "zh-CN",
       title: "Liang-DongXing",
-      description: "喜爱编程,热爱编程",
+      description: "喜爱编程、热爱编程",
     },
     '/en/': {
       lang: "en-US",
@@ -33,6 +46,8 @@ export default defineUserConfig({
 
     locales: {
       '/': {
+        selectLanguageText: '选择语言',
+        selectLanguageAriaLabel: '选择语言',
         selectLanguageName: '简体中文',
         // page meta
         editLinkText: "在 GitHub 上编辑此页",
@@ -74,5 +89,34 @@ export default defineUserConfig({
     vuePluginOptions: {},
   }),
   plugins: [
+    backToTopPlugin(),
+    containerPlugin({}),
+    externalLinkIconPlugin({}),
+    googleAnalyticsPlugin({
+      id: 'G-292474410'
+    }),
+    mediumZoomPlugin({}),
+    nprogressPlugin(),
+    registerComponentsPlugin({}),
+    searchPlugin({
+      locales: {
+        '/': {
+          placeholder: '搜索',
+        },
+        '/en/': {
+          placeholder: 'Search',
+        },
+      },
+    }),
+    prismjsPlugin({
+    }),
+    activeHeaderLinksPlugin({
+    }),
+    gitPlugin({
+    }),
+    palettePlugin({
+    }),
+    tocPlugin({
+    }),
   ],
 });
