@@ -1,7 +1,7 @@
 :root {
   // brand colors
-  --c-brand: #000000;
-  --c-brand-light: #000000;
+  --c-brand: #3eaf7c;
+  --c-brand-light: #4abf8a;
 
   // background colors
   --c-bg: #ffffff;
@@ -69,7 +69,6 @@
   --sidebar-width-mobile: calc(var(--sidebar-width) * 0.82);
   --content-width: 740px;
   --homepage-width: 960px;
-
 }
 
 // plugin-back-to-top
@@ -94,6 +93,11 @@
   --docsearch-hit-background: var(--c-bg);
   --docsearch-hit-shadow: 0 1px 3px 0 var(--c-border-dark);
   --docsearch-footer-background: var(--c-bg);
+}
+
+// plugin-external-link-icon
+.external-link-icon {
+  --external-link-icon-color: var(--c-text-quote);
 }
 
 // plugin-medium-zoom
@@ -130,8 +134,8 @@
 
 html.dark {
   // brand colors
-  --c-brand: #ffffff;
-  --c-brand-light: #ffffff;
+  --c-brand: #3aa675;
+  --c-brand-light: #349469;
 
   // background colors
   --c-bg: #22272e;
