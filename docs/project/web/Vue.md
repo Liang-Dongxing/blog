@@ -5,6 +5,6 @@
 
 :clipboard:[尚硅谷_Vue全家桶.pdf](file/尚硅谷_Vue全家桶.pdf)
 
-:clipboard:[vue3快速上手.md](file/vue3快速上手.md)
+:clipboard:[vue3快速上手.md](file/vue3快速上手.markdown)
 
 :clipboard:[尚硅谷_前端技术_Vue全家桶.pdf](file/尚硅谷_前端技术_Vue全家桶.pdf)

@@ -9,4 +9,4 @@
 
 :clipboard:[Nginx高级.pdf](file/nginx/Nginx高级.pdf)
 
-:clipboard:[Nginx高级课程扩容与高效.md](file/nginx/Nginx高级课程扩容与高效.md)
+:clipboard:[Nginx高级课程扩容与高效.md](file/nginx/Nginx高级课程扩容与高效.markdown)
