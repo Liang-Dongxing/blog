@@ -5,6 +5,7 @@ export default {
     lang: 'zh-CN',
     title: '个人博客',
     description: '记录一些日常的学习笔记',
+    base: '/blog/',
     lastUpdated: true,
     themeConfig: {
         nav: navbar,
