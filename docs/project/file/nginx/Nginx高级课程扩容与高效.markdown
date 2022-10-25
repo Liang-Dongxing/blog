@@ -1,7 +1,5 @@
 # Nginx高级 第一部分：扩容
 
-
-
 通过扩容提升整体吞吐量
 
 ## 1.单机垂直扩容：硬件资源增加
@@ -20,11 +18,7 @@ HDD
 
 ```
 
-
-
 ## 2.水平扩展：集群化
-
-
 
 ### 会话管理
 
@@ -32,9 +26,9 @@ HDD
 
 **ip_hash**
 
-**hash    $cookie_jsessionid;**
+**hash $cookie_jsessionid;**
 
-**hash    $request_uri;** 
+**hash $request_uri;**
 
 **使用lua逻辑定向分发**
 
@@ -66,8 +60,6 @@ HDD
 
     }
 ```
-
-
 
 #### 使用sticky模块完成对Nginx的负载均衡
 
@@ -111,8 +103,6 @@ https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/1.2.6.zip
 
 ![image-20220513181435310](image-20220513181435310.png)
 
-
-
 打开 `ngx_http_sticky_misc.c`文件
 
 在12行添加
@@ -122,15 +112,11 @@ https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/1.2.6.zip
 #include <openssl/md5.h>
 ```
 
-
-
 **备份之前的程序**
 
 ```
 mv /usr/local/nginx/sbin/nginx /usr/local/nginx/sbin/nginx.old
 ```
-
-
 
 **把编译好的Nginx程序替换到原来的目录里**
 
@@ -150,10 +136,6 @@ make upgrade
 nginx -V
 ```
 
-
-
-
-
 配置方法
 
 ```
@@ -166,21 +148,11 @@ server 192.168.44.103;
 }
 ```
 
-
-
-#### 
-
-
-
-
-
-
+####  
 
 ### KeepAlive
 
 在http协议header中可以看到当前连接状态
-
-
 
 #### 测试工具charles
 
@@ -206,13 +178,11 @@ https://www.charlesproxy.com
 
 #### 对客户端使用keepalive
 
-**keepalive_time** 
+**keepalive_time**
 
 限制keepalive保持连接的最大时间
 
 1.19.10新功能
-
-
 
 **keepalive_timeout**
 
@@ -222,7 +192,7 @@ https://www.charlesproxy.com
 
 keepalive_timeout = 0 即关闭
 
-- send_timeout 10;  10秒
+- send_timeout 10; 10秒
 - send_timeout 10 10; 同时下发一个header 告诉浏览器
 
 **send_timeout**
@@ -231,13 +201,7 @@ keepalive_timeout = 0 即关闭
 
 **此处有坑**，注意耗时的同步操作有可能会丢弃用户连接
 
- 
-
-
-
 该设置表示Nginx服务器与客户端连接后，某次会话中服务器等待客户端响应超过10s，就会自动关闭连接。
-
-
 
 **keepalive_request**
 
@@ -250,8 +214,6 @@ keepalive_timeout = 0 即关闭
 不对某些浏览器建立长连接
 
 默认msie6
-
-
 
 ```nginx
 http {
@@ -270,8 +232,6 @@ http {
 
     keepalive_requests 1000;  #一个tcp复用中 可以并发接收的请求个数
 ```
-
-
 
 ### 对上游服务器使用keepalive
 
@@ -293,7 +253,7 @@ http {
 
 连接保留时间
 
- **keepalive_requests ** 
+**keepalive_requests **
 
 一个tcp复用中 可以并发接收的请求个数
 
@@ -305,42 +265,38 @@ http {
 	proxy_set_header Connection "";
 	清楚close信息
 
-
-
-
-
 ### AB安装
 
 yum install httpd-tools
 
 参数说明：
 
-- -n  即requests，用于指定压力测试总共的执行次数。
-- -c  即concurrency，用于指定的并发数。
-- -t  即timelimit，等待响应的最大时间(单位：秒)。
-- -b  即windowsize，TCP发送/接收的缓冲大小(单位：字节)。
-- -p  即postfile，发送POST请求时需要上传的文件，此外还必须设置-T参数。
-- -u  即putfile，发送PUT请求时需要上传的文件，此外还必须设置-T参数。
-- -T  即content-type，用于设置Content-Type请求头信息，例如：application/x-www-form-urlencoded，默认值为text/plain。
-- -v  即verbosity，指定打印帮助信息的冗余级别。
-- -w  以HTML表格形式打印结果。
-- -i  使用HEAD请求代替GET请求。
-- -x  插入字符串作为table标签的属性。
-- -y  插入字符串作为tr标签的属性。
-- -z  插入字符串作为td标签的属性。
-- -C  添加cookie信息，例如："Apache=1234"(可以重复该参数选项以添加多个)。
-- -H  添加任意的请求头，例如："Accept-Encoding: gzip"，请求头将会添加在现有的多个请求头之后(可以重复该参数选项以添加多个)。
-- -A  添加一个基本的网络认证信息，用户名和密码之间用英文冒号隔开。
-- -P  添加一个基本的代理认证信息，用户名和密码之间用英文冒号隔开。
-- -X  指定使用的和端口号，例如:"126.10.10.3:88"。
-- -V  打印版本号并退出。
-- -k  使用HTTP的KeepAlive特性。
-- -d  不显示百分比。
-- -S  不显示预估和警告信息。
-- -g  输出结果信息到gnuplot格式的文件中。
-- -e  输出结果信息到CSV格式的文件中。
-- -r  指定接收到错误信息时不退出程序。
-- -h  显示用法信息，其实就是ab -help。
+- -n 即requests，用于指定压力测试总共的执行次数。
+- -c 即concurrency，用于指定的并发数。
+- -t 即timelimit，等待响应的最大时间(单位：秒)。
+- -b 即windowsize，TCP发送/接收的缓冲大小(单位：字节)。
+- -p 即postfile，发送POST请求时需要上传的文件，此外还必须设置-T参数。
+- -u 即putfile，发送PUT请求时需要上传的文件，此外还必须设置-T参数。
+- -T 即content-type，用于设置Content-Type请求头信息，例如：application/x-www-form-urlencoded，默认值为text/plain。
+- -v 即verbosity，指定打印帮助信息的冗余级别。
+- -w 以HTML表格形式打印结果。
+- -i 使用HEAD请求代替GET请求。
+- -x 插入字符串作为table标签的属性。
+- -y 插入字符串作为tr标签的属性。
+- -z 插入字符串作为td标签的属性。
+- -C 添加cookie信息，例如："Apache=1234"(可以重复该参数选项以添加多个)。
+- -H 添加任意的请求头，例如："Accept-Encoding: gzip"，请求头将会添加在现有的多个请求头之后(可以重复该参数选项以添加多个)。
+- -A 添加一个基本的网络认证信息，用户名和密码之间用英文冒号隔开。
+- -P 添加一个基本的代理认证信息，用户名和密码之间用英文冒号隔开。
+- -X 指定使用的和端口号，例如:"126.10.10.3:88"。
+- -V 打印版本号并退出。
+- -k 使用HTTP的KeepAlive特性。
+- -d 不显示百分比。
+- -S 不显示预估和警告信息。
+- -g 输出结果信息到gnuplot格式的文件中。
+- -e 输出结果信息到CSV格式的文件中。
+- -r 指定接收到错误信息时不退出程序。
+- -h 显示用法信息，其实就是ab -help。
 
 #### 直连nginx
 
@@ -383,8 +339,6 @@ Percentage of the requests served within a certain time (ms)
  100%     14 (longest request)
 
 ```
-
-
 
 #### 反向代理
 
@@ -513,7 +467,7 @@ Percentage of the requests served within a certain time (ms)
 
 ```
 
-#### nginx反向代理Tomcat 
+#### nginx反向代理Tomcat
 
 ```
 Server Software:        nginx/1.21.6
@@ -555,14 +509,6 @@ Percentage of the requests served within a certain time (ms)
 
 ```
 
-
-
-
-
-
-
-
-
 ### UpStream工作流程
 
 proxy_pass 向上游服务器请求数据共有6个阶段
@@ -574,17 +520,11 @@ proxy_pass 向上游服务器请求数据共有6个阶段
 - 处理响应体
 - 结束
 
-
-
-
-
-
-
 **set_header**
 
 设置header
 
-**proxy_connect_timeout** 
+**proxy_connect_timeout**
 
 与上游服务器连接超时时间、快速失败
 
@@ -602,7 +542,7 @@ proxy_pass 向上游服务器请求数据共有6个阶段
 
 是否完全读到请求体之后再向上游服务器发送请求
 
-**proxy_buffering** 
+**proxy_buffering**
 
 是否缓冲上游服务器数据
 
@@ -627,13 +567,14 @@ proxy_max_temp_file_size 1024m;
 
 **proxy_temp_file_write_size 8k**
 
-当启用从代理服务器到临时文件的响应的缓冲时，一次限制写入临时文件的数据的大小。 默认情况下，大小由proxy_buffer_size和proxy_buffers指令设置的两个缓冲区限制。 临时文件的最大大小由proxy_max_temp_file_size指令设置。  
+当启用从代理服务器到临时文件的响应的缓冲时，一次限制写入临时文件的数据的大小。
+默认情况下，大小由proxy_buffer_size和proxy_buffers指令设置的两个缓冲区限制。 临时文件的最大大小由proxy_max_temp_file_size指令设置。
 
 **proxy_max_temp_file_size 1024m;**
 
 临时文件最大值
 
-**proxy_temp_path** 
+**proxy_temp_path**
 
 > ```
 > proxy_temp_path /spool/nginx/proxy_temp 1 2;
@@ -645,12 +586,6 @@ a temporary file might look like this:
 > /spool/nginx/proxy_temp/7/45/00000123457
 > ```
 
-
-
-
-
-
-
 #### 对客户端的限制
 
 可配置位置
@@ -658,8 +593,6 @@ a temporary file might look like this:
 - http
 - server
 - location
-
-
 
 **client_body_buffer_size**
 
@@ -671,21 +604,23 @@ a temporary file might look like this:
 
 **client_header_buffer_size**
 
-设置读取客户端请求体的缓冲区大小。 如果请求体大于缓冲区，则将整个请求体或仅将其部分写入临时文件。 默认32位8K。 64位平台16K。  
+设置读取客户端请求体的缓冲区大小。 如果请求体大于缓冲区，则将整个请求体或仅将其部分写入临时文件。 默认32位8K。 64位平台16K。
 
 **client_max_body_size 1000M;**
 
 默认1m，如果一个请求的大小超过配置的值，会返回413 (request Entity Too Large)错误给客户端
 
-将size设置为0将禁用对客户端请求正文大小的检查。  
+将size设置为0将禁用对客户端请求正文大小的检查。
 
 **client_body_timeout**
 
-指定客户端与服务端建立连接后发送 request body 的超时时间。如果客户端在指定时间内没有发送任何内容，Nginx 返回 HTTP 408（Request Timed Out）
+指定客户端与服务端建立连接后发送 request body 的超时时间。如果客户端在指定时间内没有发送任何内容，Nginx 返回 HTTP
+408（Request Timed Out）
 
 **client_header_timeout**
 
-客户端向服务端发送一个完整的 request header 的超时时间。如果客户端在指定时间内没有发送一个完整的 request header，Nginx 返回 HTTP 408（Request Timed Out）。
+客户端向服务端发送一个完整的 request header 的超时时间。如果客户端在指定时间内没有发送一个完整的 request header，Nginx 返回
+HTTP 408（Request Timed Out）。
 
 **client_body_temp_path** *path*` [`*level1*` [`*level2*` [`*level3*`]]]
 
@@ -699,11 +634,7 @@ a temporary file might look like this:
 
 尽量缓冲body的时候在内存中使用连续单一缓冲区，在二次开发时使用`$request_body`读取数据时性能会有所提高
 
-
-
-
-
-**client_header_buffer_size** 
+**client_header_buffer_size**
 
 设置读取客户端请求头的缓冲区大小
 
@@ -721,11 +652,7 @@ https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/
 
 http://nginx.org/en/docs/stream/ngx_stream_proxy_module.html#proxy_bind
 
-
-
-**proxy_timeout** 
-
-
+**proxy_timeout**
 
 #### 重试机制
 
@@ -759,8 +686,6 @@ http://nginx.org/en/docs/stream/ngx_stream_proxy_module.html#proxy_bind
 
 比如有这么一个场景：一个用于导入数据的web页面，上传一个excel，通过读取、处理excel，向数据库中插入数据，处理时间较长（如1分钟），且为同步操作（即处理完成后才返回结果）。暂且不论这种方式的好坏，若nginx配置的响应等待时间（proxy_read_timeout）为30秒，就会触发超时重试，将请求又打到另一台。如果处理中没有考虑到重复数据的场景，就会发生数据多次重复插入！（当然，这种场景，内网可以通过机器名访问该服务器进行操作，就可以绕过nginx了，不过外网就没办法了。）
 
-
-
 ### 获取客户端真实IP
 
 #### X-Real-IP
@@ -772,10 +697,6 @@ http://nginx.org/en/docs/stream/ngx_stream_proxy_module.html#proxy_bind
 ```
 proxy_set_header X-Forwarded-For $remote_addr;
 ```
-
-
-
-
 
 ### Gzip
 
@@ -792,8 +713,6 @@ proxy_set_header X-Forwarded-For $remote_addr;
 **gzip_comp_level** 1；
 
 压缩等级 1-9，数字越大压缩比越高
-
-
 
 ##### gzip_http_version 1.1;
 
@@ -818,11 +737,7 @@ no_etag - 启用压缩 ,如果header头中不包含 "ETag" 头信息
 auth - 启用压缩 , 如果header头中包含 "Authorization" 头信息
 any - 无条件启用压缩
 
-
-
-
-
-#####  gzip_vary on;
+##### gzip_vary on;
 
 增加一个header，适配老的浏览器 `Vary: Accept-Encoding`
 
@@ -877,17 +792,13 @@ Keep-Alive: timeout=65
 ./configure --with-http_gzip_static_module
 ```
 
-
-
-
-
 ### Brotli
 
 #### 安装
 
 - 官网
-  - `https://github.com/google/ngx_brotli`
-  - `https://codeload.github.com/google/brotli/tar.gz/refs/tags/v1.0.9`
+    - `https://github.com/google/ngx_brotli`
+    - `https://codeload.github.com/google/brotli/tar.gz/refs/tags/v1.0.9`
 
 - 下载 两个项目
 
@@ -926,8 +837,6 @@ brotli on;
 
 ```
 
-
-
 - 测试
 
 默认http协议是没有br的
@@ -935,8 +844,6 @@ brotli on;
 ```
 curl -H 'Accept-Encoding: gzip' -I http://localhost
 ```
-
-
 
 ### 合并客户端请求
 
@@ -979,19 +886,17 @@ https://github.com/alibaba/nginx-http-concat
 
 http://nginx.org/en/docs/http/ngx_http_ssi_module.html
 
-
-
 #### 配置
 
-**ssi_min_file_chunk** 
+**ssi_min_file_chunk**
 
 向磁盘存储并使用sendfile发送，文件大小最小值
 
-**ssi_last_modified** 
+**ssi_last_modified**
 
 是否保留lastmodified
 
-**ssi_silent_errors** 
+**ssi_silent_errors**
 
 不显示逻辑错误
 
@@ -999,11 +904,9 @@ http://nginx.org/en/docs/http/ngx_http_ssi_module.html
 
 限制脚本参数最大长度
 
-**ssi_types** 
+**ssi_types**
 
 默认text/html;如果需要其他mime类型 需要设置
-
-
 
 #### include file
 
@@ -1013,13 +916,9 @@ http://nginx.org/en/docs/http/ngx_http_ssi_module.html
 
 静态文件直接引用
 
-
-
 #### include virtual
 
 可以指向location，而不一定是具体文件
-
-
 
 #### include wait
 
@@ -1057,11 +956,7 @@ http://nginx.org/en/docs/http/ngx_http_ssi_module.html
 
 逻辑判断
 
-
-
-
-
-### rsync 
+### rsync
 
 https://www.samba.org/ftp/rsync/rsync.html
 
@@ -1070,8 +965,6 @@ rsync 是用于替代 rcp 的一个工具，rsync 使用所谓的 rsync算法 �
 
 rsync 基于inotify 开发
 
-
-
 Rsync有三种模式：
 
 - 本地模式（类似于cp命令）
@@ -1079,8 +972,6 @@ Rsync有三种模式：
 - 守护进程（socket进程：是rsync的重要功能）
 
 ## rsync 常用选项
-
-
 
 | 选项     | 含义                                                         |
 | :------- | :----------------------------------------------------------- |
@@ -1108,7 +999,7 @@ Rsync有三种模式：
 yum install -y rsync
 ```
 
-### 
+###  
 
 #### 密码文件
 
@@ -1126,16 +1017,12 @@ hello:123
 chmod 600 /etc/rsync.password
 ```
 
-
-
 修改配置
 
 ```
 auth users = sgg
 secrets file = /etc/rsyncd.pwd
 ```
-
-
 
 #### 开机启动
 
@@ -1173,8 +1060,6 @@ echo "111" >> /etc/rsyncd.passwd
 
 此时在客户端已经可以配合脚本实现定时同步了
 
-
-
 #### 如何实现推送？
 
 修改配置
@@ -1195,15 +1080,11 @@ rsync -avz --password-file=/etc/rsyncd.passwd.client /usr/local/nginx/html/ rsyn
 yum install -y automake
 ```
 
-
-
 ```
 wget http://github.com/downloads/rvoicilas/inotify-tools/inotify-tools-3.14.tar.gz
 ./configure --prefix=/usr/local/inotify
 make && make install
 ```
-
-
 
 监控目录
 
@@ -1211,8 +1092,6 @@ make && make install
 /usr/local/inotify/bin/inotifywait -mrq --timefmt '%Y-%m-%d %H:%M:%S' --format '%T %w%f %e' -e close_write,modify,delete,create,attrib,move //usr/local/nginx/html/
 
 ```
-
-
 
 #### 简单自动化脚本
 
@@ -1227,10 +1106,6 @@ done
 
 ```
 
-
-
-
-
 #### inotify常用参数
 
 | 参数       | 说明                                                         | 含义                                                         |
@@ -1243,17 +1118,9 @@ done
 | --format   |                                                              | #打印使用指定的输出类似格式字符串                            |
 | -e         | --event[ -e\|--event ... ]accessmodifyattribcloseopenmove_tomove createdeleteumount | #通过此参数可以指定要监控的事件 #文件或目录被读取#文件或目录的内容被修改#文件或目录属性被改变#文件或目录封闭，无论读/写模式#文件或目录被打开#文件或目录被移动至另外一个目录#文件或目录被移动另一个目录或从另一个目录移动至当前目录#文件或目录被创建在当前目录#文件或目录被删除#文件系统被卸载 |
 
-
-
-
-
-
-
 ## 多级缓存
 
 #### 静态资源缓存
-
-
 
 #### 浏览器缓存
 
@@ -1269,13 +1136,14 @@ done
 
 - deskcache
 
-字面理解是从内存中，其实也是字面的含义，这个资源是直接从内存中拿到的，**不会请求服务器**一般已经加载过该资源且缓存在了内存当中，当关闭该页面时，此资源就被内存释放掉了，再次重新打开相同页面时不会出现from memory cache的情况
+字面理解是从内存中，其实也是字面的含义，这个资源是直接从内存中拿到的，**不会请求服务器**
+一般已经加载过该资源且缓存在了内存当中，当关闭该页面时，此资源就被内存释放掉了，再次重新打开相同页面时不会出现from memory
+cache的情况
 
 - memorycache
 
-是从磁盘当中取出的，也是在已经在之前的某个时间加载过该资源，**不会请求服务器**但是此资源不会随着该页面的关闭而释放掉，因为是存在硬盘当中的，下次打开仍会from disk cache
-
-
+是从磁盘当中取出的，也是在已经在之前的某个时间加载过该资源，**不会请求服务器**但是此资源不会随着该页面的关闭而释放掉，因为是存在硬盘当中的，下次打开仍会from
+disk cache
 
 ##### Age
 
@@ -1285,10 +1153,6 @@ done
 
 用来标识CDN缓存经历了哪些服务器，缓存是否命中，使用的协议
 
-
-
-
-
 #### Nginx默认缓存
 
 Nginx版本不同会默认配置
@@ -1297,19 +1161,13 @@ Nginx版本不同会默认配置
 
 强制缓存：直接从本机读取，不请求服务器
 
-
-
 协商缓存：发送请求header中携带Last-Modified，服务器可能会返回304 Not Modified
-
-
 
 #### 浏览器强制缓存
 
 ##### **cache-control**
 
 http1.1的规范，使用max-age表示文件可以在浏览器中缓存的时间以秒为单位
-
-
 
 | 标记                   | 类型       | 功能                                                         |
 | ---------------------- | ---------- | ------------------------------------------------------------ |
@@ -1327,11 +1185,7 @@ http1.1的规范，使用max-age表示文件可以在浏览器中缓存的时间
 | stale-if-error         | 响应       | 在指定时间内，重新验证时返回状态码为5XX的时候，可以用本地缓存 |
 | only-if-cached         | 响应       | 那么只使用缓存内容，如果没有缓存 则504 getway timeout        |
 
-
-
 在浏览器和服务器端验证文件是否过期的时候，浏览器在二次请求的时候会携带IF-Modified-Since属性
-
-
 
 ##### Expires
 
@@ -1364,15 +1218,7 @@ ETag 用来校验用户请求的资源是否有变化，作用和lastmodified很
 
 当用户首次请求资源的时候返回给用户数据和200状态码并生成ETag，再次请求的时候服务器比对ETag，没有发生变化的话返回304
 
-
-
 Cache-Control直接是通过不请求来实现，而ETag是会发请求的，只不过服务器根据请求的东西的内容有无变化来判断是否返回请求的资源
-
-
-
-
-
-
 
 ### 总结：
 
@@ -1384,13 +1230,7 @@ Cache-Control直接是通过不请求来实现，而ETag是会发请求的，只
 
 没发生变化 返回304 不发送数据
 
-
-
-
-
 ##### last-modified 与ssi的冲突
-
-
 
 #### 浏览器缓存原则
 
@@ -1409,16 +1249,14 @@ Cache-Control直接是通过不请求来实现，而ETag是会发请求的，只
 
 - 流量消耗过多
 
-- 提前下发  避免秒杀时同时下发数据造成流量短时间暴增
+- 提前下发 避免秒杀时同时下发数据造成流量短时间暴增
 - 兜底数据 在服务器崩溃和网络不可用的时候展示
-- 临时缓存  退出即清理
-- 固定缓存  展示框架这种，可能很长时间不会更新，可用随客户端下发
-  - **首页**有的时候可以看做是框架 应该禁用缓存，以保证加载的资源都是最新的
+- 临时缓存 退出即清理
+- 固定缓存 展示框架这种，可能很长时间不会更新，可用随客户端下发
+    - **首页**有的时候可以看做是框架 应该禁用缓存，以保证加载的资源都是最新的
 - 父子连接 页面跳转时有一部分内容不需要重新加载，可用从父菜单带过来
-- 预加载     某些逻辑可用判定用户接下来的操作，那么可用异步加载那些资源
+- 预加载 某些逻辑可用判定用户接下来的操作，那么可用异步加载那些资源
 - 漂亮的加载过程 异步加载 先展示框架，然后异步加载内容，避免主线程阻塞
-
-
 
 ### GEOip
 
@@ -1451,8 +1289,6 @@ https://github.com/leev/ngx_http_geoip2_module
 
 http://nginx.org/en/docs/http/ngx_http_geoip_module.html#geoip_proxy
 
-
-
 #### Nginx配置
 
 ```
@@ -1462,12 +1298,6 @@ $geoip2_country_code country iso_code;
 add_header country $geoip2_country_code;
 ```
 
-
-
-
-
-
-
 ### 正向代理与反向代理缓存
 
 #### 正向代理配置
@@ -1476,8 +1306,6 @@ add_header country $geoip2_country_code;
 proxy_pass $scheme://$host$request_uri;
 resolver 8.8.8.8;
 ```
-
-
 
 #### 代理https请求
 
@@ -1509,8 +1337,6 @@ https://github.com/chobits/ngx_http_proxy_connect_module
  }
 ```
 
-
-
 ### proxy缓存
 
 官网解释
@@ -1528,21 +1354,22 @@ proxy_cache test_cache;
 proxy_cache_valid 168h;
 ```
 
-**proxy_cache_use_stale** 
+**proxy_cache_use_stale**
 
 默认off
 
 在什么时候可以使用过期缓存
 
-可选`error` | `timeout` | `invalid_header` | `updating` | `http_500` | `http_502` | `http_503` | `http_504` | `http_403` | `http_404` | `http_429` | `off`
+可选`error` | `timeout` | `invalid_header` | `updating` | `http_500` | `http_502` | `http_503` | `http_504` | `http_403`
+| `http_404` | `http_429` | `off`
 
-**proxy_cache_background_update** 
+**proxy_cache_background_update**
 
 默认off
 
 运行开启子请求更新过期的内容。同时会把过期的内容返回给客户端
 
-**proxy_no_cache**  **proxy_cache_bypass** 
+**proxy_no_cache**  **proxy_cache_bypass**
 
 指定什么时候不使用缓存而直接请求上游服务器
 
@@ -1553,11 +1380,7 @@ proxy_no_cache $http_pragma    $http_authorization;
 
 如果这些变量如果存在的话不为空或者不等于0，则不使用缓存
 
-
-
-
-
-**proxy_cache_convert_head** 
+**proxy_cache_convert_head**
 
 默认 on
 
@@ -1565,13 +1388,13 @@ proxy_no_cache $http_pragma    $http_authorization;
 
 如果关闭 需要在 `cache key` 中添加 $request_method 以便区分缓存内容
 
-**proxy_cache_lock** 
+**proxy_cache_lock**
 
 默认off
 
 缓存更新锁
 
-**proxy_cache_lock_age** 
+**proxy_cache_lock_age**
 
 默认5s
 
@@ -1589,21 +1412,21 @@ proxy_set_header Range $http_range;
 
 proxy_cache_key中增加range
 
-**proxy_cache_max_range_offset** 
+**proxy_cache_max_range_offset**
 
 range最大值，超过之后不做缓存，默认情况下 不需要对单文件较大的资源做缓存
 
-**proxy_cache_methods** 
+**proxy_cache_methods**
 
 默认 head get
 
-**proxy_cache_min_uses** 
+**proxy_cache_min_uses**
 
 默认1
 
 被请求多少次之后才做缓存
 
-**proxy_cache_path** 
+**proxy_cache_path**
 
 path 指定存储目录
 
@@ -1623,7 +1446,7 @@ TMPFS
 
 是否使用缓冲区
 
-- **inactive** 
+- **inactive**
 
 指定时间内未被访问过的缓存将被删除
 
@@ -1647,27 +1470,17 @@ https://github.com/FRiCKLE/ngx_cache_purge
          proxy_cache_key $uri;
 ```
 
-
-
-
-
-
-
-**proxy_cache_key** 
+**proxy_cache_key**
 
 默认`$scheme$proxy_host$request_uri`
 
 缓存的key
 
-
-
-**proxy_cache_revalidate** 
+**proxy_cache_revalidate**
 
 如果缓存过期了，向上游服务器发送“If-Modified-Since” and “If-None-Match来验证是否改变，如果没有就不需要重新下载资源了
 
-
-
-**proxy_cache_valid** 
+**proxy_cache_valid**
 
 可以针对不容http状态码设置缓存过期时间
 
@@ -1681,13 +1494,7 @@ proxy_cache_valid any      1m;
 
 any指其他任意状态码
 
-
-
-
-
 # 第二部分 高效
-
-
 
 ## Nginx内存缓存
 
@@ -1708,8 +1515,6 @@ sendfile(10, 11, [0] => [1429], 1429)   = 1429
 write(4, "192.168.44.1 - - [27/May/2022:14"..., 193) = 193
 close(11) 
 ```
-
-
 
 **open_file_cache**
 
@@ -1750,8 +1555,6 @@ http://nginx.org/en/docs/http/ngx_http_memcached_module.html
 
 默认指向location
 
-
-
 ### 匿名location
 
 ### nginx + memcached
@@ -1769,8 +1572,6 @@ http://nginx.org/en/docs/http/ngx_http_memcached_module.html
 ```
 memcached-tool 127.0.0.1:11211  stats
 ```
-
-
 
 #### nginx配置
 
@@ -1798,8 +1599,6 @@ location / {
 
 ```
 
-
-
 ### nginx + redis
 
 #### Redis安装
@@ -1819,11 +1618,10 @@ make
 make install 
 ```
 
+### redis2-nginx-module
 
-
-### redis2-nginx-module 
-
-redis2-nginx-module是一个支持 Redis 2.0 协议的 Nginx upstream 模块，它可以让 Nginx 以非阻塞方式直接防问远方的 Redis 服务，同时支持 TCP 协议和 Unix Domain Socket 模式，并且可以启用强大的 Redis 连接池功能。
+redis2-nginx-module是一个支持 Redis 2.0 协议的 Nginx upstream 模块，它可以让 Nginx 以非阻塞方式直接防问远方的 Redis
+服务，同时支持 TCP 协议和 Unix Domain Socket 模式，并且可以启用强大的 Redis 连接池功能。
 
 https://www.nginx.com/resources/wiki/modules/redis2/
 
@@ -1837,8 +1635,6 @@ yum install -y redis
 ```
 
 redis2-nginx-module 安装
-
-
 
 #### test
 
@@ -1858,10 +1654,6 @@ default_type text/html;
  }
 ```
 
-
-
-
-
 #### get
 
 ```nginx
@@ -1879,10 +1671,6 @@ default_type text/html;
 
 }
 ```
-
-
-
-
 
 #### set
 
@@ -1907,13 +1695,7 @@ redis2_query auth 123123;
  }
 ```
 
-
-
-
-
 #### pipeline
-
-
 
 ```nginx
      set $value 'first';
@@ -1941,10 +1723,6 @@ redis2_query del key1;
 redis2_query lrange key1 0 -1;
 ```
 
-
-
-
-
 #### 集群
 
 ```nginx
@@ -1968,23 +1746,9 @@ default_type text/html;
    }
 ```
 
-
-
 ## Stream模块
 
 http://nginx.org/en/docs/stream/ngx_stream_core_module.html
-
-
-
-
-
-
-
-
-
-
-
-
 
 ### 限流
 
@@ -2005,10 +1769,6 @@ limit_req_zone $binary_remote_addr zone=test:10m rate=15r/s;
 limit_req zone=req_zone_wl burst=20 nodelay;
 ```
 
-
-
-
-
 ### 日志
 
 ### ngx_http_log_module
@@ -2018,10 +1778,6 @@ http://nginx.org/en/docs/http/ngx_http_log_module.html
 #### ngx_http_empty_gif_module
 
 http://nginx.org/en/docs/http/ngx_http_empty_gif_module.html
-
-
-
-
 
 #### json
 
@@ -2058,9 +1814,7 @@ http://nginx.org/en/docs/ngx_core_module.html#error_log
 
 1.脚本
 
-2.Logrotate 
-
-
+2.Logrotate
 
 ### 重试机制
 
@@ -2080,13 +1834,13 @@ http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_next_upstream
 
 fail_timeout时间后会再次激活次服务
 
-**proxy_next_upstream** 
+**proxy_next_upstream**
 
-**proxy_next_upstream_timeout** 
+**proxy_next_upstream_timeout**
 
 重试最大超时时间
 
-**proxy_next_upstream_tries** 
+**proxy_next_upstream_tries**
 
 重试次数，包括第一次
 
@@ -2101,8 +1855,6 @@ https://github.com/yaoweibin/nginx_upstream_check_module
 nginx商业版
 
 http://nginx.org/en/docs/http/ngx_http_upstream_hc_module.html
-
-
 
 ### 配置
 
@@ -2141,7 +1893,8 @@ proxy_pass http://backend;
 
 ### Lua
 
-Lua 是由巴西里约热内卢天主教大学（Pontifical Catholic University of Rio de Janeiro）里的一个研究小组于1993年开发的一种轻量、小巧的脚本语言，用标准 C 语言编写，其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
+Lua 是由巴西里约热内卢天主教大学（Pontifical Catholic University of Rio de Janeiro）里的一个研究小组于1993年开发的一种轻量、小巧的脚本语言，用标准
+C 语言编写，其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
 
 官网：http://www.lua.org/
 
@@ -2165,10 +1918,6 @@ https://www.eclipse.org/ldt/
 print("hello world!")
 ```
 
-
-
-
-
 #### 保留关键字
 
 `and`       `break`     `do   ` `else`      `elseif`      `end`       `false`    ` for`       `function  if`      `in`        `local`     `nil`      ` not `      `or`      `repeat`    `return`    `then`     ` true`      `until`    ` while`
@@ -2186,10 +1935,6 @@ print("hello world!")
 
  --]]
 ```
-
-
-
-
 
 #### 变量
 
@@ -2215,15 +1960,12 @@ num = 0xff
 num = 0x56
  ```
 
-
-
-
-
 ##### 字符串
 
 可以用单引号，也可以用双引号
 
-也可以使用转义字符‘\n’ （换行）， ‘\r’ （回车）， ‘\t’ （横向制表）， ‘\v’ （纵向制表）， ‘\\’ （反斜杠）， ‘\”‘ （双引号）， 以及 ‘\” （单引号)等等
+也可以使用转义字符‘\n’ （换行）， ‘\r’ （回车）， ‘\t’ （横向制表）， ‘\v’ （纵向制表）， ‘\\’ （反斜杠）， ‘\”‘ （双引号）， 以及 ‘\”
+（单引号)等等
 
 下面的四种方式定义了完全相同的字符串（其中的两个中括号可以用于定义有换行的字符串）
 
@@ -2238,10 +1980,6 @@ a = [[alo
 
 123"]]
 ```
-
-
-
-
 
 ##### 空值
 
@@ -2277,13 +2015,7 @@ i = i +1
 end
 ```
 
-
-
-
-
 ##### if-else
-
-
 
 ```lua
 local function main()
@@ -2314,8 +2046,6 @@ main()
 
 ```
 
-
-
 ##### for循环
 
 ```lua
@@ -2327,10 +2057,6 @@ for i = 100, 1, -2 do
 
 end
 ```
-
-
-
-
 
 ##### 函数
 
@@ -2347,10 +2073,6 @@ power2 = myPower(2,3)
 
  print(power2)
 ```
-
-
-
-
 
 2.
 
@@ -2378,10 +2100,6 @@ print(c1())  --> 2
 print(c1())
 ```
 
-
-
-
-
 #### 返回值
 
 ```lua
@@ -2389,12 +2107,6 @@ name, age,bGay = "yiming", 37, false, "yimingl@hotmail.com"
 
 print(name,age,bGay)
 ```
-
-
-
-
-
- 
 
  ```lua
 function isMyGirl(name)
@@ -2405,10 +2117,6 @@ local bol,name = isMyGirl('xiao6')
 
 print(name,bol)
  ```
-
-
-
-
 
 #### Table
 
@@ -2428,10 +2136,6 @@ main()
 
 ```
 
-
-
-
-
 #### 数组
 
 ```lua
@@ -2444,10 +2148,6 @@ main()
 
 ```
 
-
-
-
-
 #### 遍历
 
 ```lua
@@ -2459,13 +2159,9 @@ for k, v in pairs(arr) do
 end
 ```
 
-
-
- 
-
 #### 成员函数
 
-#### 
+####  
 
 ```lua
 local function main()
@@ -2483,7 +2179,7 @@ main()
 
 ```
 
-## Openresty Nginx + Lua 
+## Openresty Nginx + Lua
 
 Nginx是一个主进程配合多个工作进程的工作模式，每个进程由单个线程来处理多个连接。
 
@@ -2495,19 +2191,20 @@ Nginx是一个主进程配合多个工作进程的工作模式，每个进程由
 
 以CentOS举例 其他系统参照：http://openresty.org/cn/linux-packages.html
 
-你可以在你的 CentOS 系统中添加 openresty 仓库，这样就可以便于未来安装或更新我们的软件包（通过 yum update 命令）。运行下面的命令就可以添加我们的仓库：
+你可以在你的 CentOS 系统中添加 openresty 仓库，这样就可以便于未来安装或更新我们的软件包（通过 yum update
+命令）。运行下面的命令就可以添加我们的仓库：
 
-      yum install yum-utils
+ yum install yum-utils
 
-      yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
+ yum-config-manager --add-repo https://openresty.org/package/centos/openresty.repo
 
 然后就可以像下面这样安装软件包，比如 openresty：
 
-   yum install openresty
+ yum install openresty
 
 如果你想安装命令行工具 resty，那么可以像下面这样安装 openresty-resty 包：
 
-      sudo yum install openresty-resty
+ sudo yum install openresty-resty
 
 #### 源码编译安装
 
@@ -2521,15 +2218,13 @@ http://openresty.org/cn/download.html
 
 然后在进入 `openresty-VERSION/ `目录, 然后输入以下命令配置:
 
- `./configure`
+`./configure`
 
 默认, `--prefix=/usr/local/openresty` 程序会被安装到`/usr/local/openresty`目录。
 
 依赖 `gcc openssl-devel pcre-devel zlib-devel`
 
 安装：`yum install gcc openssl-devel pcre-devel zlib-devel postgresql-devel`
-
- 
 
 您可以指定各种选项，比如
 
@@ -2544,10 +2239,6 @@ http://openresty.org/cn/download.html
 
             --with-http_postgres_module
  ```
-
-
-
-
 
 试着使用 `./configure --help` 查看更多的选项。
 
@@ -2567,7 +2258,7 @@ http://openresty.org/cn/download.html
 
 `Nginx -t`
 
- 重新加载配置文件
+重新加载配置文件
 
 `Service openresty reload`
 
@@ -2588,10 +2279,6 @@ http://openresty.org/cn/download.html
       }
 ```
 
-
-
-
-
 ### lua-nginx-module
 
 #### 创建配置文件lua.conf
@@ -2610,8 +2297,6 @@ http://openresty.org/cn/download.html
          }
 }
 ```
-
-
 
 #### 在Nginx.conf下引入lua配置
 
@@ -2640,8 +2325,6 @@ http://openresty.org/cn/download.html
      }
  ```
 
-
-
 #### 获取Nginx uri中的所有变量
 
 ```lua
@@ -2660,8 +2343,6 @@ for k, v in pairs(uri_args) do
     end  
 end
 ```
-
-
 
 #### 在处理http请求时还可以使用
 
@@ -2695,12 +2376,6 @@ end
 lua_code_cache off
 ```
 
-
-
-
-
-
-
 #### 获取Nginx请求头信息
 
 ```lua
@@ -2726,10 +2401,6 @@ for k,v in pairs(headers) do
 
 end  
 ```
-
-
-
-
 
 #### 获取post请求参数
 
@@ -2766,21 +2437,17 @@ ngx.say("ngx.req.http_version : ", ngx.req.http_version(), "<br/>")
 ngx.say("ngx.req.get_method : ", ngx.req.get_method(), "<br/>")  
 ```
 
-#### 原始的请求头内容  
+#### 原始的请求头内容
 
 ```lua
 ngx.say("ngx.req.raw_header : ",  ngx.req.raw_header(), "<br/>")  
 ```
 
-
-
-#### body内容体  
+#### body内容体
 
 ```lua
 ngx.say("ngx.req.get_body_data() : ", ngx.req.get_body_data(), "<br/>")
 ```
-
- 
 
 ### Nginx缓存
 
@@ -2810,11 +2477,10 @@ i = shared_data:incr("i", 1)
 ngx.say("i=", i, "<br/>")
 ```
 
-
-
 #### lua-resty-lrucache
 
-Lua 实现的一个简单的 LRU 缓存，适合在 Lua 空间里直接缓存较为复杂的 Lua 数据结构：它相比 ngx_lua 共享内存字典可以省去较昂贵的序列化操作，相比 memcached 这样的外部服务又能省去较昂贵的 socket 操作
+Lua 实现的一个简单的 LRU 缓存，适合在 Lua 空间里直接缓存较为复杂的 Lua 数据结构：它相比 ngx_lua 共享内存字典可以省去较昂贵的序列化操作，相比
+memcached 这样的外部服务又能省去较昂贵的 socket 操作
 
 https://github.com/openresty/lua-resty-lrucache
 
@@ -2826,10 +2492,6 @@ https://github.com/openresty/lua-resty-lrucache
                 require("my/cache").go()
             }
 ```
-
-
-
-
 
 自定义函数
 
@@ -2882,8 +2544,6 @@ return _M
 
 打开lua_code_cache
 
-
-
 ### lua-resty-redis访问redis
 
 https://github.com/openresty/lua-resty-redis
@@ -2898,8 +2558,6 @@ local res, err = red:lrange("nokey", 0, 1)
 ngx.say("res:",cjson.encode(res))
 ```
 
-
-
 #### 创建连接
 
 ```lua
@@ -2907,8 +2565,6 @@ red, err = redis:new()
 
 ok, err = red:connect(host, port, options_table?)
 ```
-
-
 
 #### timeout
 
@@ -2922,17 +2578,11 @@ red:set_timeout(time)
 red:set_keepalive(max_idle_timeout, pool_size)
 ```
 
-
-
-
-
 #### close
 
 ```
 ok, err = red:close()
 ```
-
- 
 
 #### pipeline
 
@@ -2954,8 +2604,6 @@ results, err = red:commit_pipeline()
         return
 end
 ```
-
-
 
 ```
   local redis = require "resty.redis"
@@ -2992,17 +2640,14 @@ end
               ngx.say("dog: ", res)
 ```
 
-
-
 #### redis-cluster支持
 
 https://github.com/steve0511/resty-redis-cluster
 
- 
+### redis2-nginx-module
 
-### redis2-nginx-module 
-
-redis2-nginx-module是一个支持 Redis 2.0 协议的 Nginx upstream 模块，它可以让 Nginx 以非阻塞方式直接防问远方的 Redis 服务，同时支持 TCP 协议和 Unix Domain Socket 模式，并且可以启用强大的 Redis 连接池功能。
+redis2-nginx-module是一个支持 Redis 2.0 协议的 Nginx upstream 模块，它可以让 Nginx 以非阻塞方式直接防问远方的 Redis
+服务，同时支持 TCP 协议和 Unix Domain Socket 模式，并且可以启用强大的 Redis 连接池功能。
 
 #### test
 
@@ -3022,10 +2667,6 @@ default_type text/html;
  }
 ```
 
-
-
-
-
 #### get
 
 ```nginx
@@ -3043,10 +2684,6 @@ default_type text/html;
 
 }
 ```
-
-
-
-
 
 #### set
 
@@ -3071,13 +2708,7 @@ redis2_query auth 123123;
  }
 ```
 
-
-
-
-
 #### pipeline
-
-
 
 ```nginx
      set $value 'first';
@@ -3105,10 +2736,6 @@ redis2_query del key1;
 redis2_query lrange key1 0 -1;
 ```
 
-
-
-
-
 #### 集群
 
 ```nginx
@@ -3132,13 +2759,9 @@ default_type text/html;
    }
 ```
 
-
-
 ### lua-resty-mysql
 
-
-
- https://github.com/openresty/lua-resty-mysql
+https://github.com/openresty/lua-resty-mysql
 
  ```
  local mysql = require "resty.mysql"
@@ -3212,35 +2835,35 @@ https://github.com/bungle/lua-resty-template
 
 如果学习过JavaEE中的servlet和JSP的话，应该知道JSP模板最终会被翻译成Servlet来执行；
 
-而lua-resty-template模板引擎可以认为是JSP，其最终会被翻译成Lua代码，然后通过ngx.print输出。   
+而lua-resty-template模板引擎可以认为是JSP，其最终会被翻译成Lua代码，然后通过ngx.print输出。
 
-lua-resty-template大体内容有： 
+lua-resty-template大体内容有：
 
-l   模板位置：从哪里查找模板； 
+l 模板位置：从哪里查找模板；
 
-l   变量输出/转义：变量值输出； 
+l 变量输出/转义：变量值输出；
 
-l   代码片段：执行代码片段，完成如if/else、for等复杂逻辑，调用对象函数/方法； 
+l 代码片段：执行代码片段，完成如if/else、for等复杂逻辑，调用对象函数/方法；
 
-l   注释：解释代码片段含义； 
+l 注释：解释代码片段含义；
 
-l   include：包含另一个模板片段； 
+l include：包含另一个模板片段；
 
-l   其他：lua-resty-template还提供了不需要解析片段、简单布局、可复用的代码块、宏指令等支持。
+l 其他：lua-resty-template还提供了不需要解析片段、简单布局、可复用的代码块、宏指令等支持。
 
 基础语法
 
-l   {(include_file)}：包含另一个模板文件；
+l {(include_file)}：包含另一个模板文件；
 
-l   {* var *}：变量输出；
+l {* var *}：变量输出；
 
-l   {{ var }}：变量转义输出；
+l {{ var }}：变量转义输出；
 
-l   {% code %}：代码片段；
+l {% code %}：代码片段；
 
-l   {# comment #}：注释；
+l {# comment #}：注释；
 
-l   {-raw-}：中间的内容不会解析，作为纯文本输出；
+l {-raw-}：中间的内容不会解析，作为纯文本输出；
 
 ### lua代码热加载
 
@@ -3288,8 +2911,6 @@ ngx.say("xx:",content)
 ```
 set $template_root /usr/local/openresty/nginx/tmp;
 ```
-
-
 
 ### resty.template.html
 
@@ -3356,8 +2977,6 @@ template.render("view.html", context)
 
 ```
 
-
-
 ### 模板管理与缓存
 
 模板缓存：默认开启，开发环境可以手动关闭
@@ -3368,13 +2987,7 @@ template.render("view.html", context)
 
 `template.cache = {}`
 
-
-
-
-
 ### 完整页面
-
-
 
 ```lua
 local template = require("resty.template")
@@ -3437,12 +3050,6 @@ template.render("view.html", context)
 
 ```
 
-
-
-
-
-
-
 ### layout 布局统一风格
 
 使用模板内容嵌套可以实现全站风格同一布局
@@ -3463,10 +3070,6 @@ layout.view    = template.compile "view.html" { message = "Hello, World!" }
 layout:render()
 ```
 
-
-
-
-
 二、
 
 ```
@@ -3480,10 +3083,6 @@ template.render("layout.html", {
 
 })
 ```
-
-
-
-
 
 三、
 
@@ -3500,10 +3099,6 @@ view.message   = "Hello, World!"
 
 view:render()
 ```
-
-
-
-
 
 四、
 
@@ -3522,12 +3117,6 @@ view.message   = "Hello, World!"
 
 view:render()
 ```
-
-
-
-
-
- 
 
 #### layout.html
 
@@ -3553,15 +3142,9 @@ view:render()
 </html>
 ```
 
-
-
-
-
 #### view.html·
 
 `msg:{{message}}`
-
- 
 
 #### 多级嵌套
 
@@ -3581,10 +3164,6 @@ view.html
 {% layout="section.html" %}
 ```
 
-
-
-
-
 <h1>msg:{{message}}</h1>
 
 section.html
@@ -3593,7 +3172,7 @@ section.html
 id="section">
 
 
-​    {*view*} - sss
+​ {*view*} - sss
 
 </div>
 
@@ -3615,15 +3194,11 @@ layout.html
 
 <body>
 
-​    {*view*}
+​ {*view*}
 
 </body>
 
 </html>
-
-
-
-
 
 ### Redis缓存+mysql+模板输出
 
@@ -3740,10 +3315,6 @@ zhangmen=cjson.decode(res)
 template.render("view.html", context)
 ```
 
-
-
-
-
 模板
 
 ```
@@ -3796,10 +3367,6 @@ template.render("view.html", context)
 
 ```
 
-
-
-
-
 ## Lua 开源项目
 
 ### WAF
@@ -3808,25 +3375,23 @@ https://github.com/unixhot/waf
 
 https://github.com/loveshell/ngx_lua_waf
 
- 
+l 防止 SQL 注入，本地包含，部分溢出，fuzzing 测试，XSS/SSRF 等 Web 攻击
 
-l   防止 SQL 注入，本地包含，部分溢出，fuzzing 测试，XSS/SSRF 等 Web 攻击
+l 防止 Apache Bench 之类压力测试工具的攻击
 
-l   防止 Apache Bench 之类压力测试工具的攻击
+l 屏蔽常见的扫描黑客工具，扫描器
 
-l   屏蔽常见的扫描黑客工具，扫描器
+l 屏蔽图片附件类目录执行权限、防止 webshell 上传
 
-l   屏蔽图片附件类目录执行权限、防止 webshell 上传
+l 支持 IP 白名单和黑名单功能，直接将黑名单的 IP 访问拒绝
 
-l   支持 IP 白名单和黑名单功能，直接将黑名单的 IP 访问拒绝
+l 支持 URL 白名单，将不需要过滤的 URL 进行定义
 
-l   支持 URL 白名单，将不需要过滤的 URL 进行定义
+l 支持 User-Agent 的过滤、支持 CC 攻击防护、限制单个 URL 指定时间的访问次数
 
-l   支持 User-Agent 的过滤、支持 CC 攻击防护、限制单个 URL 指定时间的访问次数
+l 支持支持 Cookie 过滤，URL 与 URL 参数过滤
 
-l   支持支持 Cookie 过滤，URL 与 URL 参数过滤
-
-l   支持日志记录，将所有拒绝的操作，记录到日志中去
+l 支持日志记录，将所有拒绝的操作，记录到日志中去
 
 ### Kong 基于Openresty的流量网关
 
@@ -3834,38 +3399,43 @@ https://konghq.com/
 
 https://github.com/kong/kong
 
-Kong 基于 OpenResty，是一个云原生、快速、可扩展、分布式的微服务抽象层（Microservice Abstraction Layer），也叫 API 网关（API Gateway），在 Service Mesh 里也叫 API 中间件（API Middleware）。
+Kong 基于 OpenResty，是一个云原生、快速、可扩展、分布式的微服务抽象层（Microservice Abstraction Layer），也叫 API 网关（API
+Gateway），在 Service Mesh 里也叫 API 中间件（API Middleware）。
 
-Kong 开源于 2015 年，核心价值在于高性能和扩展性。从全球 5000 强的组织统计数据来看，Kong 是现在依然在维护的，在生产环境使用最广泛的 API 网关。
+Kong 开源于 2015 年，核心价值在于高性能和扩展性。从全球 5000 强的组织统计数据来看，Kong 是现在依然在维护的，在生产环境使用最广泛的
+API 网关。
 
 Kong 宣称自己是世界上最流行的开源微服务 API 网关（The World’s Most Popular Open Source Microservice API Gateway）。
 
 核心优势：
 
-l   可扩展：可以方便的通过添加节点水平扩展，这意味着可以在很低的延迟下支持很大的系统负载。
+l 可扩展：可以方便的通过添加节点水平扩展，这意味着可以在很低的延迟下支持很大的系统负载。
 
-l   模块化：可以通过添加新的插件来扩展 Kong 的能力，这些插件可以通过 RESTful Admin API 来安装和配置。
+l 模块化：可以通过添加新的插件来扩展 Kong 的能力，这些插件可以通过 RESTful Admin API 来安装和配置。
 
-l   在任何基础架构上运行：Kong 可以在任何地方都能运行，比如在云或混合环境中部署 Kong，单个或全球的数据中心。
+l 在任何基础架构上运行：Kong 可以在任何地方都能运行，比如在云或混合环境中部署 Kong，单个或全球的数据中心。
 
-###  APISIX
+### APISIX
 
 ### ABTestingGateway
 
 https://github.com/CNSRE/ABTestingGateway
 
-ABTestingGateway 是一个可以动态设置分流策略的网关，关注与灰度发布相关领域，基于 Nginx 和 ngx-lua 开发，使用 Redis 作为分流策略数据库，可以实现动态调度功能。
+ABTestingGateway 是一个可以动态设置分流策略的网关，关注与灰度发布相关领域，基于 Nginx 和 ngx-lua 开发，使用 Redis
+作为分流策略数据库，可以实现动态调度功能。
 
-ABTestingGateway 是新浪微博内部的动态路由系统 dygateway 的一部分，目前已经开源。在以往的基于 Nginx 实现的灰度系统中，分流逻辑往往通过 rewrite 阶段的 if 和 rewrite 指令等实现，优点是性能较高，缺点是功能受限、容易出错，以及转发规则固定，只能静态分流。ABTestingGateway 则采用 ngx-lua，通过启用 lua-shared-dict 和 lua-resty-lock 作为系统缓存和缓存锁，系统获得了较为接近原生 Nginx 转发的性能。
+ABTestingGateway 是新浪微博内部的动态路由系统 dygateway 的一部分，目前已经开源。在以往的基于 Nginx 实现的灰度系统中，分流逻辑往往通过
+rewrite 阶段的 if 和 rewrite 指令等实现，优点是性能较高，缺点是功能受限、容易出错，以及转发规则固定，只能静态分流。ABTestingGateway
+则采用 ngx-lua，通过启用 lua-shared-dict 和 lua-resty-lock 作为系统缓存和缓存锁，系统获得了较为接近原生 Nginx 转发的性能。
 
-l   支持多种分流方式，目前包括 iprange、uidrange、uid 尾数和指定uid分流
+l 支持多种分流方式，目前包括 iprange、uidrange、uid 尾数和指定uid分流
 
-l   支持多级分流，动态设置分流策略，即时生效，无需重启
+l 支持多级分流，动态设置分流策略，即时生效，无需重启
 
-l   可扩展性，提供了开发框架，开发者可以灵活添加新的分流方式，实现二次开发
+l 可扩展性，提供了开发框架，开发者可以灵活添加新的分流方式，实现二次开发
 
-l   高性能，压测数据接近原生 Nginx 转发
+l 高性能，压测数据接近原生 Nginx 转发
 
-l   灰度系统配置写在 Nginx 配置文件中，方便管理员配置
+l 灰度系统配置写在 Nginx 配置文件中，方便管理员配置
 
-l   适用于多种场景：灰度发布、AB 测试和负载均衡等
+l 适用于多种场景：灰度发布、AB 测试和负载均衡等

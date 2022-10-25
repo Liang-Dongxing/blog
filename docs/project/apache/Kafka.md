@@ -1,5 +1,7 @@
 # Apache Kafka
-[Apache Kafka](https://kafka.apachecn.org/) 是一个开源的分布式事件流平台（ Event Streaming Platform），被数千家公司用于高性能数据管道、流分析、数据集成和关键任务应用。
+
+[Apache Kafka](https://kafka.apachecn.org/) 是一个开源的分布式事件流平台（ Event Streaming
+Platform），被数千家公司用于高性能数据管道、流分析、数据集成和关键任务应用。
 
 :clipboard:[尚硅谷大数据技术之Kafka.pdf](file/尚硅谷大数据技术之Kafka.pdf)
 
