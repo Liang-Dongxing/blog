@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,d as r}from"./app.f134292f.js";const h=JSON.parse('{"title":"Vue","description":"","frontmatter":{},"headers":[],"relativePath":"project/web/Vue.md","lastUpdated":1666684617000}'),_={name:"project/web/Vue.md"},o=r("",6),p=[o];function u(d,n,s,c,i,E){return a(),t("div",null,p)}const A=e(_,[["render",u]]);export{h as __pageData,A as default};

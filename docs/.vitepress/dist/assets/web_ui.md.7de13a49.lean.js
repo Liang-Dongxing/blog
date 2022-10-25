@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,d as s}from"./app.f134292f.js";const m=JSON.parse('{"title":"ElementUI Plus","description":"","frontmatter":{},"headers":[],"relativePath":"web/ui.md","lastUpdated":null}'),n={name:"web/ui.md"},r=s("",6),o=[r];function i(l,d,c,p,u,_){return a(),t("div",null,o)}const f=e(n,[["render",i]]);export{m as __pageData,f as default};

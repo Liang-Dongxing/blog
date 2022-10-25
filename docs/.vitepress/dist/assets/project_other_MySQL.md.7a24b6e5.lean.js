@@ -1,0 +1,1 @@
+import{_ as E,c as A,o as p,d as e}from"./app.f134292f.js";const y=JSON.parse('{"title":"MySQL","description":"","frontmatter":{},"headers":[],"relativePath":"project/other/MySQL.md","lastUpdated":null}'),f={name:"project/other/MySQL.md"},a=e("",21),B=[a];function _(d,l,r,s,C,t){return p(),A("div",null,B)}const h=E(f,[["render",_]]);export{y as __pageData,h as default};
