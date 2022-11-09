@@ -62,6 +62,7 @@ export default {
         text: '运维',
         items: [
             {text: 'Redis集群', link: '/ops/redis_cluster'},
+            {text: 'NFS挂载', link: '/ops/nfs'},
         ]
     }],
 }
