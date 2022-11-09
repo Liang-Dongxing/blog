@@ -1,1 +1,0 @@
-import{_ as e,c as a,o as r,d}from"./app.cd6c8442.js";const h=JSON.parse('{"title":"Gradle","description":"","frontmatter":{},"headers":[],"relativePath":"project/other/Gradle.md","lastUpdated":1666684849000}'),t={name:"project/other/Gradle.md"},l=d("",6),o=[l];function p(_,E,n,f,s,c){return r(),a("div",null,o)}const A=e(t,[["render",p]]);export{h as __pageData,A as default};

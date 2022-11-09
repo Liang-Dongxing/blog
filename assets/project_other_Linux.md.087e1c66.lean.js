@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,d as n}from"./app.ae7dd88e.js";const f=JSON.parse('{"title":"Linux","description":"","frontmatter":{},"headers":[],"relativePath":"project/other/Linux.md","lastUpdated":1666684849000}'),r={name:"project/other/Linux.md"},i=n("",4),o=[i];function _(d,p,E,s,c,l){return a(),t("div",null,o)}const h=e(r,[["render",_]]);export{f as __pageData,h as default};
