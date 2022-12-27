@@ -63,6 +63,13 @@ export default {
         items: [
             {text: 'Redis集群', link: '/ops/redis_cluster'},
             {text: 'NFS挂载', link: '/ops/nfs'},
+            {
+                text: 'Shell', items: [
+                    {text: 'echo', link: '/ops/shell/echo'},
+                    {text: 'getopts', link: '/ops/shell/getopts'},
+                    {text: 'if', link: '/ops/shell/if'},
+                ]
+            },
         ]
     }],
     '/developer/': [{
