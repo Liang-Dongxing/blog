@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.e2abb5e1.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"project/alibaba/index.md","lastUpdated":1666684849000}'),r={name:"project/alibaba/index.md"};function o(n,c,s,d,i,p){return a(),t("div")}const m=e(r,[["render",o]]);export{l as __pageData,m as default};
