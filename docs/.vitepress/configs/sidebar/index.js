@@ -65,4 +65,11 @@ export default {
             {text: 'NFS挂载', link: '/ops/nfs'},
         ]
     }],
+    '/developer/': [{
+        text: '开发',
+        items: [
+            {text: 'Maven 打包分离 jar 包里的 lib 依赖', link: '/developer/1'},
+            {text: '把前端项目使用 Maven 打包到 jar 包中', link: '/developer/2'},
+        ]
+    }],
 }
