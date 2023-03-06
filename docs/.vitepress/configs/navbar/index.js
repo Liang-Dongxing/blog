@@ -24,5 +24,9 @@ export default [
     {
         text: '运维',
         link: '/ops/redis_cluster'
+    },
+    {
+        text: 'Java',
+        link: '/java/spring-cloud/discovery/zookeeper'
     }
 ]

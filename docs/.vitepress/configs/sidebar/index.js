@@ -72,4 +72,14 @@ export default {
             },
         ]
     }],
+    '/java/': [{
+        text: 'Java',
+        items: [
+            {
+                text: 'Spring Cloud', items: [
+                    {text: 'Spring Cloud Zookeeper', link: '/java/spring-cloud/discovery/zookeeper'},
+                ]
+            },
+        ]
+    }],
 }
