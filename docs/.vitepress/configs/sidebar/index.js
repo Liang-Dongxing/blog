@@ -72,12 +72,14 @@ export default {
             },
         ]
     }],
-    '/java/': [{
-        text: 'Java',
+    '/developer/': [{
+        text: '开发',
         items: [
+            {text: 'Maven 打包分离 jar 包里的 lib 依赖', link: '/developer/1'},
+            {text: '把前端项目使用 Maven 打包到 jar 包中', link: '/developer/2'},
             {
                 text: 'Spring Cloud', items: [
-                    {text: 'Spring Cloud Zookeeper', link: '/java/spring-cloud/discovery/zookeeper'},
+                    {text: 'Spring Cloud Zookeeper', link: '/developer/spring-cloud/discovery/zookeeper'},
                 ]
             },
         ]

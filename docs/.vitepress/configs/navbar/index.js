@@ -26,7 +26,7 @@ export default [
         link: '/ops/redis_cluster'
     },
     {
-        text: 'Java',
-        link: '/java/spring-cloud/discovery/zookeeper'
+        text: '开发',
+        link: '/developer/1'
     }
 ]
