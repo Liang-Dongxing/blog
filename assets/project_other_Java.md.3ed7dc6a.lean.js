@@ -1,0 +1,1 @@
+import{_ as a,c as e,o as t,e as _}from"./app.a539d7d7.js";const h=JSON.parse('{"title":"Java","description":"","frontmatter":{},"headers":[],"relativePath":"project/other/Java.md","lastUpdated":1666684849000}'),r={name:"project/other/Java.md"},o=_("",4),B=[o];function E(d,p,s,c,n,i){return t(),e("div",null,B)}const l=a(r,[["render",E]]);export{h as __pageData,l as default};
