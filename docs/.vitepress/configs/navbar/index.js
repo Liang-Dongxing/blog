@@ -1,24 +1,11 @@
 export default [
     {text: '总览', link: '/introduction'},
     {
-        text: '开源项目',
-        items: [
-            {
-                text: 'Alibaba',
-                link: '/project/alibaba/Canal'
-            },
-            {
-                text: 'Apache',
-                link: '/project/apache/Atlas'
-            },
-            {
-                text: 'Other',
-                link: '/project/other/Azkaban'
-            },
-        ]
+        text: '后端',
+        link: '/developer/maven/1'
     },
     {
-        text: 'web 前端',
+        text: '前端',
         link: '/web/ui'
     },
     {
@@ -26,7 +13,6 @@ export default [
         link: '/ops/redis_cluster'
     },
     {
-        text: '开发',
-        link: '/developer/1'
-    }
+        text: '开源项目',
+    },
 ]

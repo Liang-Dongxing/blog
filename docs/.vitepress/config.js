@@ -13,8 +13,8 @@ export default {
         siteTitle: 'LiangDongXing',
         lastUpdatedText: '最后修改时间',
         footer: {
-            message: 'Released under the GNU GPLv3 Licensed.',
-            copyright: 'Copyright © 2022-present Liang-DongXing'
+            message: 'Released under the MIT Licensed.',
+            copyright: 'Copyright © 2023-present Liang-DongXing'
         },
         editLinks: false,
         editLink: {
@@ -27,6 +27,26 @@ export default {
         docFooter: {
             prev: '上一篇',
             next: '下一篇'
+        },
+        search: {
+            provider: 'local',
+            options: {
+                translations: {
+                    button: {
+                        buttonText: '搜索文档',
+                        buttonAriaLabel: '搜索文档'
+                    },
+                    modal: {
+                        noResultsText: '无法找到相关结果',
+                        resetButtonTitle: '清除查询条件',
+                        footer: {
+                            selectText: '选择',
+                            navigateText: '切换',
+                            closeText: '关闭'
+                        }
+                    }
+                }
+            }
         }
     }
 }
