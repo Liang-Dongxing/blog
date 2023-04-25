@@ -18,11 +18,11 @@ export default {
         },
         editLinks: false,
         editLink: {
-            pattern: 'https://github.com/Liang-Dongxing/my-docs/docs/:path',
+            pattern: 'https://github.com/Liang-Dongxing/blog/docs/:path',
             text: '在 GitHub 上编辑此页面'
         },
         socialLinks: [
-            {icon: 'github', link: 'https://github.com/Liang-Dongxing/my-docs'}
+            {icon: 'github', link: 'https://github.com/Liang-Dongxing/blog'}
         ],
         docFooter: {
             prev: '上一篇',

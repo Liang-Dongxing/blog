@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "个人文档",
   "main": "index.js",
-  "repository": "git@github.com:Liang-Dongxing/my-docs.git",
+  "repository": "git@github.com:Liang-Dongxing/blog.git",
   "author": "LiangDongXing",
   "license": "GNU GPLv3 License",
   "scripts": {
