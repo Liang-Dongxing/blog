@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as s}from"./chunks/framework.8ad3a56f.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"ops/file-sync.md","filePath":"ops/file-sync.md","lastUpdated":1686120995000}'),a={name:"ops/file-sync.md"};function o(c,n,r,p,i,d){return t(),s("div")}const _=e(a,[["render",o]]);export{l as __pageData,_ as default};

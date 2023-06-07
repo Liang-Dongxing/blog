@@ -1,1 +1,0 @@
-import{_ as e,c as t,o as a}from"./app.0a9bfa31.js";const f=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"ops/file-sync.md","lastUpdated":1686120995000}'),s={name:"ops/file-sync.md"};function o(c,n,r,p,i,d){return a(),t("div")}const l=e(s,[["render",o]]);export{f as __pageData,l as default};
