@@ -1,1 +1,0 @@
-import{_ as e,c as n,o as a,e as i}from"./app.a539d7d7.js";const c=JSON.parse('{"title":"Nginx","description":"","frontmatter":{},"headers":[],"relativePath":"project/other/Nginx.md","lastUpdated":1666684849000}'),t={name:"project/other/Nginx.md"},r=i("",7),p=[r];function o(d,f,x,_,g,s){return a(),n("div",null,p)}const A=e(t,[["render",o]]);export{c as __pageData,A as default};
